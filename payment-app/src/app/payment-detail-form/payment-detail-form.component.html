@@ -1,0 +1,224 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" autocomplete="off" novalidate>
+    <input type="hidden" name="paymentDetailId" [value]="service.formMaterial.paymentDetailId">
+    <div class="form-group">
+        <label>Card Owner Name</label>
+        <input 
+            type="text" 
+            class="form-control form-control-lg" 
+            placeholder="Full Name" 
+            name="cardOwnerName" 
+            #cardOwnerName="ngModel" [(ngModel)]="service.formMaterial.cardOwnerName" required maxLength="16" pattern="[a-zA-Z ]*">
+
+        <div *ngIf="cardOwnerName && cardOwnerName.invalid && (cardOwnerName.dirty || cardOwnerName.touched)" class="alert alert-danger">
+            <div *ngIf="cardOwnerName.errors?.required">
+                Card Owner Name is required.
+            </div>
+            <div *ngIf="cardOwnerName.errors?.pattern">
+                Card Owner Name must be alphabetic.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Card Number</label>
+        <input 
+            type="text" 
+            class="form-control form-control-lg" 
+            placeholder="16 Digit Card Number" 
+            name="cardNumber" 
+            #cardNumber="ngModel" [(ngModel)]="service.formMaterial.cardNumber" required maxlength="16" minlength="16" pattern="^\d+$" >
+        
+        <div *ngIf="cardNumber && cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)" class="alert alert-danger">
+            <div *ngIf="cardNumber.errors?.required">
+                Card Number is required.
+            </div>
+            <div *ngIf="cardNumber.errors?.minlength">
+                Card Number must have 16 characters.
+            </div>
+            <div *ngIf="cardNumber.errors?.pattern">
+                Card Number must be numerical.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>Security Code</label>
+            <input 
+                type="password" 
+                class="form-control form-control-lg" 
+                placeholder="Security Code" 
+                name="securityCode" 
+                #securityCode="ngModel" [(ngModel)]="service.formMaterial.securityCode" required maxlength="3" minlength="3" pattern="^\d+$" >  
+            
+            <div *ngIf="securityCode && securityCode.invalid && (securityCode.dirty || securityCode.touched)" class="alert alert-danger">
+                <div *ngIf="securityCode.errors?.required">
+                    Security Code is required.
+                </div>
+                <div *ngIf="securityCode.errors?.minlength">
+                    Security Code must contains 3 digits.
+                </div>
+                <div *ngIf="securityCode.errors?.pattern">
+                    Security Code must be numerical.
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Valid Through</label>
+            <input 
+                type="text" 
+                class="form-control form-control-lg" 
+                placeholder="MM/YY" 
+                name="expirationDate" 
+                #expirationDate="ngModel" [(ngModel)]="service.formMaterial.expirationDate" required maxlength="5" minlength="5" pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$">
+
+            <div *ngIf="expirationDate && expirationDate.invalid && (expirationDate.dirty || expirationDate.touched)" class="alert alert-danger">
+                <div *ngIf="expirationDate.errors?.required">
+                    Expiration Date is required.
+                </div>
+                <div *ngIf="expirationDate.errors?.pattern || expirationDate.errors?.minlength ">
+                    Expiration Date invalid.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-outline-dark btn-lg btn-block" type="submit" [disabled]="!form.valid">Submit</button>
+    </div>
+    
+</form> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <form [formGroup]="createForm.inputData" (ngSubmit)="addPaymentDetail()">
+    <div class="form-group">
+        <label>Card Owner Name</label>
+        <input 
+            type="text" 
+            class="form-control form-control-lg" 
+            placeholder="Full Name" 
+            name="cardOwnerName" 
+            formControlName="cardOwnerName">
+
+        <div *ngIf="cardOwnerName && cardOwnerName.invalid && (cardOwnerName.dirty || cardOwnerName.touched)" class="alert alert-danger">
+            <div *ngIf="cardOwnerName.errors?.required">
+                Card Owner Name is required.
+            </div>
+            <div *ngIf="cardOwnerName.errors?.pattern">
+                Card Owner Name must be alphabetic.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Card Number</label>
+        <input 
+            type="text" 
+            class="form-control form-control-lg" 
+            placeholder="16 Digit Card Number" 
+            name="cardNumber" 
+            formControlName="cardNumber"
+            minlength="16" maxlength="16">
+
+        <div *ngIf="cardNumber && cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)" class="alert alert-danger">
+            <div *ngIf="cardNumber.errors?.required">
+                Card Number is required.
+            </div>
+            <div *ngIf="cardNumber.errors?.minlength">
+                Card Number must be 16 digits.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Security Code</label>
+                <input 
+                    type="password" 
+                    class="form-control form-control-lg" 
+                    placeholder="Security Code" 
+                    name="securityCode" 
+                    formControlName="securityCode"
+                    minlength="3" maxlength="3">
+        
+                <div *ngIf="securityCode && securityCode.invalid && (securityCode.dirty || securityCode.touched)" class="alert alert-danger">
+                    <div *ngIf="securityCode.errors?.required">
+                        Security Code is required.
+                    </div>
+                    <div *ngIf="securityCode.errors?.minlength">
+                        Security Code must be 3 digits.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Valid Through</label>
+                <input 
+                    type="text" 
+                    class="form-control form-control-lg" 
+                    placeholder="MM/YY" 
+                    name="expirationDate" 
+                    formControlName="expirationDate"
+                    minlength="5" maxlength="5">
+        
+                <div *ngIf="expirationDate && expirationDate.invalid && (expirationDate.dirty || expirationDate.touched)" class="alert alert-danger">
+                    <div *ngIf="expirationDate.errors?.required">
+                        Expiration Date is required.
+                    </div>
+                    <div *ngIf="expirationDate.errors?.minlength">
+                        Wrong Date Format.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-outline-dark btn-lg btn-block" type="submit" [disabled]="!createForm.inputData.valid">Submit</button>
+    </div>
+
+    
+</form> -->
