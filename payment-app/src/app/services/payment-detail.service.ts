@@ -22,7 +22,7 @@ export class PaymentDetailService {
     cardNumber: "",
     securityCode: "",
     expirationDate: ""
-  } 
+  } as PaymentDetail;
 
   httpOptions = {
     headers: new HttpHeaders({

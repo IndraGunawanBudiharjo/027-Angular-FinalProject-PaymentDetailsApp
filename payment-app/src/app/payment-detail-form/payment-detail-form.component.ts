@@ -53,7 +53,13 @@ export class PaymentDetailFormComponent implements OnInit {
 
   clearForm(form: NgForm) {
     form.form.reset();
-    this.service.formMaterial = {} as PaymentDetail;
+    this.service.formMaterial = {
+      paymentDetailId: 0,
+      cardOwnerName: '',
+      cardNumber: '',
+      securityCode: '',
+      expirationDate: ''
+    } as PaymentDetail;
   }
 
 }
